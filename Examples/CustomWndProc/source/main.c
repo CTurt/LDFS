@@ -8,7 +8,8 @@ unsigned char holdingSpace = 0;
 float angle = 0.0f;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
-	LDFS_CreateWindow(WndProc, "test");
+	LDFS_Init(WndProc);
+	LDFS_CreateWindow("test", 256, 256);
 	
 	while(1) {
 		if(LDFS_Update()) {

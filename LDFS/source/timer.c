@@ -40,6 +40,10 @@ float LDFS_GetTime(void) {
 	}
 }
 
+inline void LDFS_SetFramerate(double framerate) {
+	LDFS_Framerate = framerate;
+}
+
 void LDFS_MaintainFramerate(void) {
 	float LDFS_FrameEnd;
 	do {

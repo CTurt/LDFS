@@ -1,3 +1,5 @@
+#pragma once
+
 struct LDFS_Timer {
 	__int64 frequency;
 	float resolution;
@@ -14,4 +16,5 @@ extern float LDFS_FrameStart;
 
 short LDFS_InitTimer(void);
 float LDFS_GetTime(void);
+inline void LDFS_SetFramerate(double framerate);
 void LDFS_MaintainFramerate(void);

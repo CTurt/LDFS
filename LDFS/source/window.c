@@ -3,32 +3,27 @@
 
 #include "LDFS.h"
 
-static HWND LDFS_hWnd;
-static HDC LDFS_hDC;
-static HGLRC LDFS_hRC;
-static MSG LDFS_msg;
+WNDCLASS LDFS_wc;
+HWND LDFS_hWnd;
+HDC LDFS_hDC;
+HGLRC LDFS_hRC;
+MSG LDFS_msg;
 
-int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow, WNDPROC wndProc, char *title) {
-	WNDCLASS wc;
-	BOOL quit = 0;
+int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow, char *title, int width, int height) {
+	LDFS_wc.style = CS_OWNDC;
+	//LDFS_wc.lpfnWndProc = wndProc;
+	LDFS_wc.cbClsExtra = 0;
+	LDFS_wc.cbWndExtra = 0;
+	LDFS_wc.hInstance = hInstance;
+	LDFS_wc.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	LDFS_wc.hCursor = LoadCursor(NULL, IDC_ARROW);
+	LDFS_wc.hbrBackground = (HBRUSH)GetStockObject(BLACK_BRUSH);
+	LDFS_wc.lpszMenuName = NULL;
+	LDFS_wc.lpszClassName = "LDFSClass";
+	RegisterClass(&LDFS_wc);
 	
-	wc.style = CS_OWNDC;
-	wc.lpfnWndProc = wndProc;
-	wc.cbClsExtra = 0;
-	wc.cbWndExtra = 0;
-	wc.hInstance = hInstance;
-	wc.hIcon = LoadIcon( NULL, IDI_APPLICATION );
-	wc.hCursor = LoadCursor( NULL, IDC_ARROW );
-	wc.hbrBackground = (HBRUSH)GetStockObject( BLACK_BRUSH );
-	wc.lpszMenuName = NULL;
-	wc.lpszClassName = "LDFSClass";
-	RegisterClass(&wc);
-	
-	LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE, 0, 0, 256, 256, NULL, NULL, hInstance, NULL);
-	
+	LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE, 0, 0, width, height, NULL, NULL, hInstance, NULL);
 	LDFS_EnableOpenGL(LDFS_hWnd, &LDFS_hDC, &LDFS_hRC);
-	
-	LDFS_InitTimer();
 }
 
 unsigned char LDFS_Update(void) {

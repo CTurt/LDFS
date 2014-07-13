@@ -3,7 +3,8 @@
 #include <LDFS.h>
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
-	LDFS_CreateWindow(LDFS_DefaultWndProc, "test");
+	LDFS_Init(LDFS_DefaultWndProc);
+	LDFS_CreateWindow("test", 256, 256);
 	
 	while(1) {
 		if(LDFS_Update()) {
