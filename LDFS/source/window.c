@@ -9,7 +9,7 @@ HDC LDFS_hDC;
 HGLRC LDFS_hRC;
 MSG LDFS_msg;
 
-int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow, char *title, int width, int height) {
+int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow, char *title, unsigned char fullScreen, int width, int height) {
 	LDFS_wc.style = CS_OWNDC;
 	//LDFS_wc.lpfnWndProc = wndProc;
 	LDFS_wc.cbClsExtra = 0;
@@ -22,7 +22,12 @@ int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 	LDFS_wc.lpszClassName = "LDFSClass";
 	RegisterClass(&LDFS_wc);
 	
-	LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE, 0, 0, width, height, NULL, NULL, hInstance, NULL);
+	if(fullScreen) {
+		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_EX_TOPMOST | WS_POPUP, 0, 0, width == LDFS_AUTO ? GetSystemMetrics(SM_CXSCREEN) : width, height == LDFS_AUTO ? GetSystemMetrics(SM_CYSCREEN) : height, NULL, NULL, hInstance, NULL);
+		ShowWindow(LDFS_hWnd, SW_MAXIMIZE);
+	}
+	else LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE, 0, 0, width == LDFS_AUTO ? 768 : width, height == LDFS_AUTO ? 576 : height, NULL, NULL, hInstance, NULL);
+	
 	LDFS_EnableOpenGL(LDFS_hWnd, &LDFS_hDC, &LDFS_hRC);
 }
 

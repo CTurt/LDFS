@@ -9,7 +9,7 @@ float angle = 0.0f;
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
 	LDFS_Init(WndProc);
-	LDFS_CreateWindow("test", 256, 256);
+	LDFS_CreateWindow("test", 1, LDFS_AUTO, LDFS_AUTO);
 	
 	while(1) {
 		if(LDFS_Update()) {

@@ -4,7 +4,10 @@
 
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int iCmdShow) {
 	LDFS_Init(LDFS_DefaultWndProc);
-	LDFS_CreateWindow("test", 256, 256);
+	
+	// window title, full screen, width, height
+	// LDFS_AUTO gets the user's resolution for you so that the image isn't stretched
+	LDFS_CreateWindow("test", 1, LDFS_AUTO, LDFS_AUTO);
 	
 	while(1) {
 		if(LDFS_Update()) {
