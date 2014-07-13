@@ -28,7 +28,6 @@ int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 
 unsigned char LDFS_Update(void) {
 	LDFS_MaintainFramerate();
-	LDFS_FrameStart = LDFS_GetTime();
 	
 	if(PeekMessage(&LDFS_msg, NULL, 0, 0, PM_REMOVE)) {
 		if(LDFS_msg.message == WM_QUIT) {

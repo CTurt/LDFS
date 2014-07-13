@@ -49,4 +49,5 @@ void LDFS_MaintainFramerate(void) {
 	do {
 		LDFS_FrameEnd = LDFS_GetTime();
 	} while(LDFS_FrameEnd < LDFS_FrameStart + LDFS_Framerate);
+	LDFS_FrameStart = LDFS_GetTime();
 }
