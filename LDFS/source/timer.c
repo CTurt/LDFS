@@ -9,7 +9,7 @@ float LDFS_FrameStart;
 short LDFS_InitTimer(void) {
 	memset(&LDFS_Timer, 0, sizeof(LDFS_Timer));
 	
-	if(!QueryPerformanceFrequency((LARGE_INTEGER *) &LDFS_Timer.frequency)) {
+	if(!QueryPerformanceFrequency((LARGE_INTEGER *)&LDFS_Timer.frequency)) {
 		LDFS_Timer.usingPerformanceTimer = 0;
 		LDFS_Timer.multimediaTimerStart = timeGetTime();
 		LDFS_Timer.resolution = 1.0f / 1000.0f;

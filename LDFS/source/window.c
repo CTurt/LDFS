@@ -43,6 +43,21 @@ unsigned char LDFS_Update(void) {
 			DispatchMessage(&LDFS_msg);
 		}
 	}
+	
+	return 1;
+}
+
+unsigned char LDFS_NoFramerateUpdate(void) {
+	if(PeekMessage(&LDFS_msg, NULL, 0, 0, PM_REMOVE)) {
+		if(LDFS_msg.message == WM_QUIT) {
+			return 0;
+		}
+		else {
+			TranslateMessage(&LDFS_msg);
+			DispatchMessage(&LDFS_msg);
+		}
+	}
+	
 	return 1;
 }
 
