@@ -33,7 +33,7 @@ int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 		if(width == LDFS_AUTO) width = 768;
 		if(height == LDFS_AUTO) height = 576;
 		
-		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW, 0, 0, width, height, NULL, NULL, hInstance, NULL);
+		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW, 128, 128, width, height, NULL, NULL, hInstance, NULL);
 		
 		RECT rcClient, rcWindow;
 		POINT ptDiff;
@@ -43,7 +43,7 @@ int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 		ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
 		MoveWindow(LDFS_hWnd, rcWindow.left, rcWindow.top, width + ptDiff.x, height + ptDiff.y, TRUE);
 		
-		ShowWindow(LDFS_hWnd, SW_SHOW);
+		ShowWindow(LDFS_hWnd, SW_SHOWNORMAL);
 	}
 	
 	LDFS_EnableOpenGL(LDFS_hWnd, &LDFS_hDC, &LDFS_hRC);
