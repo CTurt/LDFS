@@ -23,10 +23,28 @@ int LDFS_CREATE_WINDOW(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmd
 	RegisterClass(&LDFS_wc);
 	
 	if(fullScreen) {
-		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_EX_TOPMOST | WS_POPUP, 0, 0, width == LDFS_AUTO ? GetSystemMetrics(SM_CXSCREEN) : width, height == LDFS_AUTO ? GetSystemMetrics(SM_CYSCREEN) : height, NULL, NULL, hInstance, NULL);
+		if(width == LDFS_AUTO) width = GetSystemMetrics(SM_CXSCREEN);
+		if(height == LDFS_AUTO) height = GetSystemMetrics(SM_CYSCREEN);
+		
+		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_EX_TOPMOST | WS_POPUP, 0, 0, width, height, NULL, NULL, hInstance, NULL);
 		ShowWindow(LDFS_hWnd, SW_MAXIMIZE);
 	}
-	else LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW | WS_VISIBLE, 0, 0, width == LDFS_AUTO ? 768 : width, height == LDFS_AUTO ? 576 : height, NULL, NULL, hInstance, NULL);
+	else {
+		if(width == LDFS_AUTO) width = 768;
+		if(height == LDFS_AUTO) height = 576;
+		
+		LDFS_hWnd = CreateWindow("LDFSClass", title, WS_CAPTION | WS_POPUPWINDOW, 0, 0, width, height, NULL, NULL, hInstance, NULL);
+		
+		RECT rcClient, rcWindow;
+		POINT ptDiff;
+		GetClientRect(LDFS_hWnd, &rcClient);
+		GetWindowRect(LDFS_hWnd, &rcWindow);
+		ptDiff.x = (rcWindow.right - rcWindow.left) - rcClient.right;
+		ptDiff.y = (rcWindow.bottom - rcWindow.top) - rcClient.bottom;
+		MoveWindow(LDFS_hWnd, rcWindow.left, rcWindow.top, width + ptDiff.x, height + ptDiff.y, TRUE);
+		
+		ShowWindow(LDFS_hWnd, SW_SHOW);
+	}
 	
 	LDFS_EnableOpenGL(LDFS_hWnd, &LDFS_hDC, &LDFS_hRC);
 }
