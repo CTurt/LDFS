@@ -45,9 +45,8 @@ inline void LDFS_SetFramerate(double framerate) {
 }
 
 void LDFS_MaintainFramerate(void) {
-	float LDFS_FrameEnd;
-	do {
-		LDFS_FrameEnd = LDFS_GetTime();
-	} while(LDFS_FrameEnd < LDFS_FrameStart + LDFS_Framerate);
+	float t = LDFS_FrameStart + LDFS_Framerate - LDFS_GetTime();
+	if(t > 0) Sleep(t);
+	
 	LDFS_FrameStart = LDFS_GetTime();
 }
